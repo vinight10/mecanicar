@@ -93,7 +93,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
         new_mechanic = st.selectbox("Selecione um Novo Mecânico", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"])
         new_status = st.selectbox("Selecione um Novo Status", status_options, index=status_options.index(current_status))
 
-        st.divider()
+    
 
         col1, col2, col3 = st.columns(3)
 
