@@ -39,7 +39,6 @@ st.set_page_config(
 
 st.title("🛠️ Gestão de Pátio de Oficina 🚗")
 
-st.sidebar.image('marca-nova.jpg')
 st.sidebar.title("Menu")
 
 choice = st.sidebar.radio("", ["Adicionar Veículo 🚙","Visualizar Veículos por Status 📊","Visualizar Todos os Veículos 📝","Visualizar por Consultor 👨‍🔧", "Visualizar por Mecânico 🔧"])
