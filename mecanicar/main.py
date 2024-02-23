@@ -8,7 +8,7 @@ import time
 # Definindo as propriedades do DataFrame
 pd.set_option('display.max_rows', None)  # Exibir todas as linhas
 pd.set_option('display.max_columns', None)  # Exibir todas as colunas
-pd.set_option('display.width', None)  # Largura da tela (para evitar que as colunas sejam truncadas)
+pd.set_option('display.width', 30)  # Largura da tela (para evitar que as colunas sejam truncadas)
 pd.set_option('display.expand_frame_repr', True)  # Evitar que as colunas sejam truncadas
 pd.set_option('max_colwidth', 10)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
 
@@ -27,7 +27,7 @@ def color_df(val):
         "Pronto para retirada": "green"
     }
     color = color_map.get(val, "white")
-    return f'background-color: {color}; color: white; font-size: 30px;'
+    return f'background-color: {color}; color: white; font-size: 20px;'
 
 st.set_page_config(
     page_title="Gestão de Pátio de Oficina",
