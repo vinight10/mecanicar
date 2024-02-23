@@ -10,7 +10,7 @@ pd.set_option('display.max_rows', None)  # Exibir todas as linhas
 pd.set_option('display.max_columns', None)  # Exibir todas as colunas
 pd.set_option('display.width', None)  # Largura da tela (para evitar que as colunas sejam truncadas)
 pd.set_option('display.expand_frame_repr', True)  # Evitar que as colunas sejam truncadas
-pd.set_option('max_colwidth', None)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
+pd.set_option('max_colwidth', 10)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
 
 conn = sqlite3.connect("database.db")
 
