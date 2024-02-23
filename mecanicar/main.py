@@ -115,7 +115,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 success_message_text.text("Veículo deletado")
                 st.experimental_rerun()  # Rerun do script para atualizar em tempo real
         # Renderiza o DataFrame com a coluna de botões
-        st.dataframe(df_all.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '50px'), ('line-height', '50px')]}]))
+        st.dataframe(df_all.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}]))
     else:
         st.info("Nenhum veículo encontrado.")
 
@@ -128,8 +128,8 @@ elif choice == "Visualizar por Consultor 👨‍🔧":
     data = get_data_by_consultant(consultant)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '50px'), ('line-height', '50px')]}])
-        st.dataframe(df_styled, use_container_width=40)
+        df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}])
+        st.dataframe(df.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}]))
     else:
         st.info("Nenhum veículo encontrado para este consultor.")
 
