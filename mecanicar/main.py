@@ -115,7 +115,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 success_message_text.text("Veículo deletado")
                 st.experimental_rerun()  # Rerun do script para atualizar em tempo real
         # Renderiza o DataFrame com a coluna de botões
-        st.dataframe(df_all.style.applymap(color_df, subset=["Status"]))
+        st.dataframe(df_all.style.applymap(color_df, subset=["Status"]),use_container_width=40)
     else:
         st.info("Nenhum veículo encontrado.")
 
