@@ -41,7 +41,7 @@ st.title("🛠️ Gestão de Pátio de Oficina 🚗")
 
 st.sidebar.title("Menu")
 
-choice = st.sidebar.radio("", ["Adicionar Veículo 🚙","Visualizar Veículos por Status 📊","Visualizar Todos os Veículos 📝","Visualizar por Consultor 👨‍🔧", "Visualizar por Mecânico 🔧"])
+choice = st.sidebar.radio("", ["Visualizar Todos os Veículos 📝","Adicionar Veículo 🚙","Visualizar Veículos por Status 📊","Visualizar por Consultor 👨‍🔧", "Visualizar por Mecânico 🔧"])
 
 status_options = ["Na fila", "Orçamento", "Aguardando Peças", "Em serviço", "Pronto para retirada"]
 
