@@ -6,7 +6,11 @@ from PIL import Image
 import time
 
 # Definindo as propriedades do DataFrame
-
+pd.set_option('display.max_rows', None)  # Exibir todas as linhas
+pd.set_option('display.max_columns', None)  # Exibir todas as colunas
+pd.set_option('display.width', None)  # Largura da tela (para evitar que as colunas sejam truncadas)
+pd.set_option('display.expand_frame_repr', False)  # Evitar que as colunas sejam truncadas
+pd.set_option('max_colwidth', None)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
 
 conn = sqlite3.connect("database.db")
 
@@ -68,7 +72,7 @@ elif choice == "Visualizar Veículos por Status 📊":
 
     if filtered_data:
         df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        st.dataframe(df_filtered.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '30px')]}]))
+        st.dataframe(df_filtered.style.applymap(color_df, subset=["Status"]))
     else:
         st.info("Nenhum veículo encontrado com o status selecionado.")        
 
@@ -111,7 +115,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 success_message_text.text("Veículo deletado")
                 st.experimental_rerun()  # Rerun do script para atualizar em tempo real
         # Renderiza o DataFrame com a coluna de botões
-        st.dataframe(df_all.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}]))
+        st.dataframe(df_all.style.applymap(color_df, subset=["Status"]))
     else:
         st.info("Nenhum veículo encontrado.")
 
@@ -135,7 +139,7 @@ elif choice == "Visualizar por Mecânico 🔧":
     data = get_data_by_mechanic(mechanic)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        st.dataframe(df.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '30px')]}]))
+        st.dataframe(df.style.applymap(color_df, subset=["Status"]))
     else:
         st.info("Nenhum veículo encontrado para este mecânico.")
         
