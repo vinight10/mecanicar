@@ -72,7 +72,7 @@ elif choice == "Visualizar Veículos por Status 📊":
 
     if filtered_data:
         df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        st.dataframe(df_filtered.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '30px')]}]), use_container_width= 30)
+        st.dataframe(df_filtered.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '30px')]}]))
     else:
         st.info("Nenhum veículo encontrado com o status selecionado.")        
 
