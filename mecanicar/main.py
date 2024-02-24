@@ -87,7 +87,6 @@ USER_DATA = {
 
 # Função principal
 def main():
-    st.image("mecanicar/marca-nova.jpg")
     st.title("🛠️ Gestão de Pátio de Oficina 🚗")
     
     # Verifica se o usuário está autenticado
@@ -102,6 +101,7 @@ def is_authenticated():
 
 # Função para exibir a página de login
 def show_login_page():
+    st.image("mecanicar/marca-nova.jpg")
     st.title("Página de Login")
     username = st.text_input("Nome de Usuário")
     password = st.text_input("Senha", type="password")
