@@ -1,0 +1,8 @@
+import shutil
+
+# Caminho do banco de dados principal e do backup
+DB_PATH = "/database.db"
+BACKUP_PATH = "database_backup.db"
+
+# Copia o arquivo do banco de dados para o backup
+shutil.copyfile(DB_PATH, BACKUP_PATH)
