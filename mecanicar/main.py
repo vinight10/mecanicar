@@ -72,6 +72,7 @@ def main():
     # Verifica se o usuário está autenticado
     if not is_authenticated():
         show_login_page()
+        st.empty()  # Limpar a página
     else:
         show_main_page()
 
