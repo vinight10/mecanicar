@@ -44,6 +44,7 @@ def color_df(val):
     color = color_map.get(val, "white")
     return f'background-color: {color}; color: white; font-size: 20px;'
 
+
 # Função para verificar as credenciais do usuário
 def authenticate(username, password):
     # Verifique as credenciais no banco de dados ou em algum outro local seguro
@@ -51,6 +52,7 @@ def authenticate(username, password):
     # Você pode verificar se o username e password estão corretos
     # Aqui, para simplificar, vamos supor que o username é a chave e a senha é o valor no dicionário USER_DATA
     return USER_DATA.get(username) == password
+
 USER_DATA = {
     "vini": "senha123",
     "jessica": "senha456",
@@ -86,11 +88,28 @@ def show_login_page():
     if st.button("Login"):
         if authenticate(username, password):
             st.success("Login bem-sucedido!")
-            st.session_state.authenticated = True
-            st.session_state.username = username
-            st.session_state.password = password
+            set_session_data(username, password)  # Definir a sessão
+            show_main_page()  # Redirecionar para a página principal após o login
         else:
             st.error("Nome de usuário ou senha incorretos.")
+
+# Função para definir os dados da sessão após o login
+def set_session_data(username, password):
+    st.session_state.authenticated = True
+    st.session_state.username = username
+    st.session_state.password = password
+    set_session_cookie()  # Definir o cookie de sessão
+
+# Função para definir o cookie de sessão
+def set_session_cookie():
+    # Define o tempo de expiração do cookie (por exemplo, 30 minutos)
+    expiration_time = datetime.now() + timedelta(minutes=30)
+    # Define o tempo de expiração do cookie no formato Unix timestamp
+    expiration_timestamp = expiration_time.timestamp()
+    # Define o cookie com o tempo de expiração
+    session_cookie = {"username": st.session_state.username, "password": st.session_state.password, "max_age": expiration_timestamp}
+    # Salva o cookie na sessão
+    st.experimental_set_query_params(**session_cookie)
 
 # Função para exibir a página principal
 def show_main_page():
