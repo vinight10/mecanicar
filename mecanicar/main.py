@@ -162,7 +162,7 @@ elif choice == "Visualizar por Mecânico 🔧":
     data = get_data_by_mechanic(mechanic)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        st.dataframe(df.style.applymap(color_df, subset=["Status"]))
+        st.dataframe(df.style.map(color_df, subset=["Status"]))
     else:
         st.info("Nenhum veículo encontrado para este mecânico.")
         
