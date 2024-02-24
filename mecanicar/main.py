@@ -31,6 +31,18 @@ pd.set_option('display.width', 50)  # Largura da tela (para evitar que as coluna
 pd.set_option('display.expand_frame_repr', True)  # Evitar que as colunas sejam truncadas
 pd.set_option('max_colwidth', 20)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
 
+# Função para aplicar cores ao DataFrame
+def color_df(val):
+    color_map = {
+        "Na fila": "red",
+        "Orçamento": "orange",
+        "Aguardando Peças": "brown",
+        "Em serviço": "lightblue",
+        "Pronto para retirada": "green"
+    }
+    color = color_map.get(val, "white")
+    return f'background-color: {color}; color: white; font-size: 20px;'
+
 # Dados de usuário (apenas para fins de demonstração)
 USER_DATA = {
     "vini": "senha123",
