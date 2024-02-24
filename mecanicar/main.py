@@ -52,39 +52,6 @@ def authenticate(username, password):
     # Aqui, para simplificar, vamos supor que o username é a chave e a senha é o valor no dicionário USER_DATA
     return USER_DATA.get(username) == password
 
-# Função para definir o cookie de sessão
-def set_session_cookie(username, password):
-    # Define o tempo de expiração do cookie (por exemplo, 30 minutos)
-    expiration_time = datetime.now() + timedelta(minutes=30)
-    # Define o tempo de expiração do cookie no formato Unix timestamp
-    expiration_timestamp = expiration_time.timestamp()
-    # Define o cookie com o tempo de expiração
-    session_cookie = {"username": username, "password": password, "max_age": expiration_timestamp}
-    # Salva o cookie na sessão
-    st.experimental_set_query_params(**session_cookie)
-
-# Função para verificar se o cookie de sessão está presente e válido
-def is_valid_session():
-    session_params = st.experimental_get_query_params()
-    if "username" in session_params and "password" in session_params and "max_age" in session_params:
-        expiration_timestamp = float(session_params["max_age"][0])
-        return datetime.now().timestamp() < expiration_timestamp
-    return False
-
-# Dados de usuário (apenas para fins de demonstração)
-USER_DATA = {
-    "vini": "senha123",
-    "jessica": "senha456",
-    "paulo": "senha0122",
-    "rafa": "senha123",
-    "rudi": "senha222",
-    "samu": "senha77",
-    "danilo": "senha55",
-    "fosco": "senha11",
-    "weslei": "senha22",
-    "szcz": "senha44"
-}
-
 # Função principal
 def main():
     st.title("🛠️ Gestão de Pátio de Oficina 🚗")
@@ -111,7 +78,6 @@ def show_login_page():
             st.session_state.authenticated = True
             st.session_state.username = username
             st.session_state.password = password
-            set_session_cookie(username, password)  # Define o cookie de sessão
         else:
             st.error("Nome de usuário ou senha incorretos.")
 
@@ -182,7 +148,6 @@ def show_main_page():
                 if st.button("Atualizar Consultor, Mecânico e Status"):
                     update_vehicle_consultant_mechanic_status(selected_vehicle, new_consultant, new_mechanic, new_status)
                     st.success(f"Consultor, Mecânico e Status do veículo \"{selected_vehicle}\" atualizados com sucesso! 🚀")
-                    st.experimental_rerun()  # Rerun do script para atualizar em tempo real
 
             with col3:
                 delete_button = st.button(f"Excluir {selected_vehicle}")
@@ -190,9 +155,7 @@ def show_main_page():
                     delete_data(selected_vehicle)
                     success_message = st.empty()
                     success_message.success(f"Veículo \"{selected_vehicle}\" deletado com sucesso! 🚗")
-                    success_message_text = success_message.text("")
                     time.sleep(2)  # Altere o tempo conforme necessário
-                    success_message_text.text("Veículo deletado")
                     st.experimental_rerun()  # Rerun do script para atualizar em tempo real
             # Renderiza o DataFrame com a coluna de botões
             st.dataframe(df_all.style.map(color_df, subset=["Status"]))
