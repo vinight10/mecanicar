@@ -1,6 +1,6 @@
 import sqlite3
 
-DB_PATH = 'database.db'
+DB_PATH = 'mecanicar/database.db'
 
 def create_table():
     conn = sqlite3.connect(DB_PATH)
