@@ -51,7 +51,18 @@ def authenticate(username, password):
     # Você pode verificar se o username e password estão corretos
     # Aqui, para simplificar, vamos supor que o username é a chave e a senha é o valor no dicionário USER_DATA
     return USER_DATA.get(username) == password
-
+USER_DATA = {
+    "vini": "senha123",
+    "jessica": "senha456",
+    "paulo": "senha0122",
+    "rafa": "senha123",
+    "rudi": "senha222",
+    "samu": "senha77",
+    "danilo": "senha55",
+    "fosco": "senha11",
+    "weslei": "senha22",
+    "szcz": "senha44"
+}
 # Função principal
 def main():
     st.title("🛠️ Gestão de Pátio de Oficina 🚗")
