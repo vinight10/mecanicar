@@ -225,3 +225,4 @@ def show_main_page():
 # Executa a função principal
 if __name__ == "__main__":
     main()
+
