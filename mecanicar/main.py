@@ -1,8 +1,3 @@
-
-Claro! Vou integrar o código de autenticação fornecido ao seu código existente. Aqui está como você pode fazer isso:
-
-python
-Copy code
 import streamlit as st
 import pandas as pd
 import sqlite3 
