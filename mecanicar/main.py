@@ -87,6 +87,7 @@ USER_DATA = {
 
 # Função principal
 def main():
+    st.image("mecanicar/marca-nova.jpg")
     st.title("🛠️ Gestão de Pátio de Oficina 🚗")
     
     # Verifica se o usuário está autenticado
