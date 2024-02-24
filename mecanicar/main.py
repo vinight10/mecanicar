@@ -4,6 +4,8 @@ import sqlite3
 from db_funcs import *
 from PIL import Image
 import time
+import os
+import shutil
 
 # Definindo as propriedades do DataFrame
 pd.set_option('display.max_rows', None)  # Exibir todas as linhas
@@ -12,7 +14,22 @@ pd.set_option('display.width', 30)  # Largura da tela (para evitar que as coluna
 pd.set_option('display.expand_frame_repr', True)  # Evitar que as colunas sejam truncadas
 pd.set_option('max_colwidth', 10)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
 
+DB_PATH = "database.db"
+
+if not os.path.exists(DB_PATH):
+    conn = sqlite3.connect(DB_PATH)
+    create_table()
+else:
+    conn = sqlite3.connect(DB_PATH)
 conn = sqlite3.connect("database.db")
+
+def backup_database():
+    backup_path = "database_backup.db"
+    if os.path.exists(DB_PATH):
+        shutil.copyfile(DB_PATH, backup_path)
+
+# Chama a função de backup
+backup_database()
 
 # Chama a função create_table() no início do script
 create_table()
@@ -88,10 +105,16 @@ elif choice == "Visualizar Todos os Veículos 📝":
         
         # Adicionando opções para modificar o consultor e o mecânico
         selected_vehicle = st.selectbox("Selecione um Veículo", df_all["Veículo"].unique())
-        current_status = df_all[df_all["Veículo"] == selected_vehicle]["Status"].values[0]
-        new_consultant = st.selectbox("Selecione um Novo Consultor", ["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"])
-        new_mechanic = st.selectbox("Selecione um Novo Mecânico", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"])
+        current_row = df_all[df_all["Veículo"] == selected_vehicle].iloc[0]  # Obtém a linha correspondente ao veículo selecionado
+        current_status = current_row["Status"]
+        current_consultant = current_row["Consultor"]
+        current_mechanic = current_row["Mecânico"]
+
+        # Define o valor padrão dos selectbox para ser o consultor e o mecânico atuais
+        new_consultant = st.selectbox("Selecione um Novo Consultor", ["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"], index=["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"].index(current_consultant))
+        new_mechanic = st.selectbox("Selecione um Novo Mecânico", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"], index=["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"].index(current_mechanic))
         new_status = st.selectbox("Selecione um Novo Status", status_options, index=status_options.index(current_status))
+
 
     
 
