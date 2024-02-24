@@ -10,9 +10,9 @@ import shutil
 # Definindo as propriedades do DataFrame
 pd.set_option('display.max_rows', None)  # Exibir todas as linhas
 pd.set_option('display.max_columns', None)  # Exibir todas as colunas
-pd.set_option('display.width', 30)  # Largura da tela (para evitar que as colunas sejam truncadas)
+pd.set_option('display.width', 50)  # Largura da tela (para evitar que as colunas sejam truncadas)
 pd.set_option('display.expand_frame_repr', True)  # Evitar que as colunas sejam truncadas
-pd.set_option('max_colwidth', 10)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
+pd.set_option('max_colwidth', 20)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
 
 DB_PATH = "mecanicar/database.db"
 
@@ -90,7 +90,7 @@ elif choice == "Visualizar Veículos por Status 📊":
 
     if filtered_data:
         df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        st.dataframe(df_filtered.style.applymap(color_df, subset=["Status"]))
+        st.dataframe(df_filtered.style.map(color_df, subset=["Status"]))
     else:
         st.info("Nenhum veículo encontrado com o status selecionado.")        
 
@@ -139,7 +139,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 success_message_text.text("Veículo deletado")
                 st.experimental_rerun()  # Rerun do script para atualizar em tempo real
         # Renderiza o DataFrame com a coluna de botões
-        st.dataframe(df_all.style.applymap(color_df, subset=["Status"]))
+        st.dataframe(df_all.style.map(color_df, subset=["Status"]))
     else:
         st.info("Nenhum veículo encontrado.")
 
@@ -152,8 +152,8 @@ elif choice == "Visualizar por Consultor 👨‍🔧":
     data = get_data_by_consultant(consultant)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}])
-        st.dataframe(df.style.applymap(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}]))
+        df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}])
+        st.dataframe(df.style.map(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}]))
     else:
         st.info("Nenhum veículo encontrado para este consultor.")
 
