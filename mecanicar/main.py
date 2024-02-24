@@ -7,6 +7,24 @@ import time
 import os
 import shutil
 
+# Função para verificar se o banco de dados já existe
+def database_exists(db_path):
+    return os.path.exists(db_path)
+
+# Função para criar o banco de dados, se necessário
+def create_database(db_path):
+    if not database_exists(db_path):
+        conn = sqlite3.connect(db_path)
+        create_table()
+        conn.close()
+
+# Caminho absoluto para o banco de dados
+
+DB_PATH = "mecanicar/database.db"
+
+# Criar o banco de dados, se necessário
+create_database(DB_PATH)
+
 # Definindo as propriedades do DataFrame
 pd.set_option('display.max_rows', None)  # Exibir todas as linhas
 pd.set_option('display.max_columns', None)  # Exibir todas as colunas
@@ -14,25 +32,6 @@ pd.set_option('display.width', 50)  # Largura da tela (para evitar que as coluna
 pd.set_option('display.expand_frame_repr', True)  # Evitar que as colunas sejam truncadas
 pd.set_option('max_colwidth', 20)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
 
-DB_PATH = "mecanicar/database.db"
-
-if not os.path.exists(DB_PATH):
-    conn = sqlite3.connect(DB_PATH)
-    create_table()
-else:
-    conn = sqlite3.connect(DB_PATH)
-conn = sqlite3.connect("mecanicar/database.db")
-
-def backup_database():
-    backup_path = "mecanicar/database_backup.db"
-    if os.path.exists(DB_PATH):
-        shutil.copyfile(DB_PATH, backup_path)
-
-# Chama a função de backup
-backup_database()
-
-# Chama a função create_table() no início do script
-create_table()
 
 # Função para aplicar cores ao DataFrame
 def color_df(val):
