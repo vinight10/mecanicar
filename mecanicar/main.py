@@ -53,13 +53,13 @@ def authenticate(username, password):
     return USER_DATA.get(username) == password
 
 # Função para definir o cookie de sessão
-def set_session_cookie():
+def set_session_cookie(username, password):
     # Define o tempo de expiração do cookie (por exemplo, 30 minutos)
     expiration_time = datetime.now() + timedelta(minutes=30)
     # Define o tempo de expiração do cookie no formato Unix timestamp
     expiration_timestamp = expiration_time.timestamp()
     # Define o cookie com o tempo de expiração
-    session_cookie = {"username": st.session_state.username, "password": st.session_state.password, "max_age": expiration_timestamp}
+    session_cookie = {"username": username, "password": password, "max_age": expiration_timestamp}
     # Salva o cookie na sessão
     st.experimental_set_query_params(**session_cookie)
 
@@ -111,7 +111,7 @@ def show_login_page():
             st.session_state.authenticated = True
             st.session_state.username = username
             st.session_state.password = password
-            set_session_cookie()  # Define o cookie de sessão
+            set_session_cookie(username, password)  # Define o cookie de sessão
         else:
             st.error("Nome de usuário ou senha incorretos.")
 
@@ -205,8 +205,7 @@ def show_main_page():
         data = get_data_by_consultant(consultant)
         if data:
             df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-            df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}])
-            st.dataframe(df.style.map(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}]))
+            st.dataframe(df.style.map(color_df, subset=["Status"]))
         else:
             st.info("Nenhum veículo encontrado para este consultor.")
 
@@ -225,4 +224,3 @@ def show_main_page():
 # Executa a função principal
 if __name__ == "__main__":
     main()
-
