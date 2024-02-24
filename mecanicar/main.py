@@ -14,17 +14,17 @@ pd.set_option('display.width', 30)  # Largura da tela (para evitar que as coluna
 pd.set_option('display.expand_frame_repr', True)  # Evitar que as colunas sejam truncadas
 pd.set_option('max_colwidth', 10)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
 
-DB_PATH = "database.db"
+DB_PATH = "mecanicar/database.db"
 
 if not os.path.exists(DB_PATH):
     conn = sqlite3.connect(DB_PATH)
     create_table()
 else:
     conn = sqlite3.connect(DB_PATH)
-conn = sqlite3.connect("database.db")
+conn = sqlite3.connect("mecanicar/database.db")
 
 def backup_database():
-    backup_path = "database_backup.db"
+    backup_path = "mecanicar/database_backup.db"
     if os.path.exists(DB_PATH):
         shutil.copyfile(DB_PATH, backup_path)
 
