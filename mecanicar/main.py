@@ -42,7 +42,76 @@ def color_df(val):
         "Pronto para retirada": "green"
     }
     return f'background-color: {color_map.get(val, "white")};'
- 
+
+
+
+# Função para verificar as credenciais do usuário
+def authenticate(username, password):
+    # Verifique as credenciais no banco de dados ou em algum outro local seguro
+    # Por exemplo, se as credenciais estão armazenadas em um dicionário como USER_DATA
+    # Você pode verificar se o username e password estão corretos
+    # Aqui, para simplificar, vamos supor que o username é a chave e a senha é o valor no dicionário USER_DATA
+    return USER_DATA.get(username) == password
+
+USER_DATA = {
+    "vini": "senha123",
+    "jessica": "senha456",
+    "paulo": "senha0122",
+    "rafa": "senha123",
+    "rudi": "senha222",
+    "samu": "senha77",
+    "danilo": "senha55",
+    "fosco": "senha11",
+    "weslei": "senha22",
+    "szcz": "senha44"
+}
+# Função principal
+def main():
+    st.title("🛠️ Gestão de Pátio de Oficina 🚗")
+    
+    # Verifica se o usuário está autenticado
+    if not is_authenticated():
+        show_login_page()
+        st.empty()  # Limpar a página
+    else:
+        show_main_page()
+
+# Função para verificar se o usuário está autenticado
+def is_authenticated():
+    return st.session_state.get("authenticated", False)
+
+# Função para exibir a página de login
+def show_login_page():
+    st.image("mecanicar/marca-nova.jpg")
+    st.title("Página de Login")
+    username = st.text_input("Nome de Usuário")
+    password = st.text_input("Senha", type="password")
+    if st.button("Login"):
+        if authenticate(username, password):
+            st.success("Login bem-sucedido!")
+            set_session_data(username, password)  # Definir a sessão
+            show_main_page()  # Redirecionar para a página principal após o login
+        else:
+            st.error("Nome de usuário ou senha incorretos.")
+
+# Função para definir os dados da sessão após o login
+def set_session_data(username, password):
+    st.session_state.authenticated = True
+    st.session_state.username = username
+    st.session_state.password = password
+    set_session_cookie()  # Definir o cookie de sessão
+
+# Função para definir o cookie de sessão
+def set_session_cookie():
+    # Define o tempo de expiração do cookie (por exemplo, 30 minutos)
+    expiration_time = datetime.now() + timedelta(minutes=30)
+    # Define o tempo de expiração do cookie no formato Unix timestamp
+    expiration_timestamp = expiration_time.timestamp()
+    # Define o cookie com o tempo de expiração
+    session_cookie = {"username": st.session_state.username, "password": st.session_state.password, "max_age": expiration_timestamp}
+    # Salva o cookie na sessão
+    st.experimental_set_query_params(**session_cookie)
+
 # Função para exibir a página principal
 def show_main_page():
     st.sidebar.image("mecanicar/marca-nova.jpg")
@@ -77,9 +146,10 @@ def show_main_page():
         status_filter = st.selectbox("Selecione um Status", status_options)
         filtered_data = get_data_by_status(status_filter)
 
-        if not filtered_data.empty:
+        if filtered_data:
             df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-            st.dataframe(df_filtered.style.applymap(color_df, subset=["Status"]))
+            st.dataframe(df_all.style.applymap(color_df, subset=["Status"]))
+
         else:
             st.info("Nenhum veículo encontrado com o status selecionado.")        
 
@@ -88,15 +158,17 @@ def show_main_page():
 
         all_data = view_all_data()
 
-        if not all_data.empty:
+        if all_data:
             df_all = pd.DataFrame(all_data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-
+            
+            # Adicionando opções para modificar o consultor e o mecânico
             selected_vehicle = st.selectbox("Selecione um Veículo", df_all["Veículo"].unique())
-            current_row = df_all[df_all["Veículo"] == selected_vehicle].iloc[0]
+            current_row = df_all[df_all["Veículo"] == selected_vehicle].iloc[0]  # Obtém a linha correspondente ao veículo selecionado
             current_status = current_row["Status"]
             current_consultant = current_row["Consultor"]
             current_mechanic = current_row["Mecânico"]
 
+            # Define o valor padrão dos selectbox para ser o consultor e o mecânico atuais
             new_consultant = st.selectbox("Selecione um Novo Consultor", ["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"], index=["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"].index(current_consultant))
             new_mechanic = st.selectbox("Selecione um Novo Mecânico", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"], index=["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"].index(current_mechanic))
             new_status = st.selectbox("Selecione um Novo Status", status_options, index=status_options.index(current_status))
@@ -104,6 +176,7 @@ def show_main_page():
             col1, col2, col3 = st.columns(3)
 
             with col1:
+            
                 if st.button("Atualizar Consultor, Mecânico e Status"):
                     update_vehicle_consultant_mechanic_status(selected_vehicle, new_consultant, new_mechanic, new_status)
                     st.success(f"Consultor, Mecânico e Status do veículo \"{selected_vehicle}\" atualizados com sucesso! 🚀")
@@ -114,10 +187,10 @@ def show_main_page():
                     delete_data(selected_vehicle)
                     success_message = st.empty()
                     success_message.success(f"Veículo \"{selected_vehicle}\" deletado com sucesso! 🚗")
-                    time.sleep(2)
-                    st.experimental_rerun()
-            
-            st.dataframe(df_all.style.applymap(color_df, subset=["Status"]))
+                    time.sleep(2)  # Altere o tempo conforme necessário
+                    st.experimental_rerun()  # Rerun do script para atualizar em tempo real
+            # Renderiza o DataFrame com a coluna de botões
+            st.dataframe(df_all.style.map(color_df, subset=["Status"]))
         else:
             st.info("Nenhum veículo encontrado.")
 
@@ -125,18 +198,24 @@ def show_main_page():
         st.subheader("Visualizar Veículos por Consultor")
         consultant = st.selectbox("Selecione um Consultor", ["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"])
         data = get_data_by_consultant(consultant)
-        if not data.empty:
+        if data:
             df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-            st.dataframe(df.style.applymap(color_df, subset=["Status"]))
+            st.dataframe(df.style.map(color_df, subset=["Status"]))
         else:
-            st.info(f"Nenhum veículo encontrado para o consultor {consultant}.")
+            st.info("Nenhum veículo encontrado para este consultor.")
 
     elif choice == "Visualizar por Mecânico 🔧":
         st.subheader("Visualizar Veículos por Mecânico")
         mechanic = st.selectbox("Selecione um Mecânico", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"])
         data = get_data_by_mechanic(mechanic)
-        if not data.empty:
+        if data:
             df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-            st.dataframe(df.style.applymap(color_df, subset=["Status"]))
+            st.dataframe(df.style.map(color_df, subset=["Status"]))
         else:
-            st.info(f"Nenhum veículo encontrado para o mecânico {mechanic}.")
+            st.info("Nenhum veículo encontrado para este mecânico.")
+            
+    st.markdown("<br><hr><center>Desenvolvido por Vinight </center><hr>", unsafe_allow_html=True)
+
+# Executa a função principal
+if __name__ == "__main__":
+    main()
