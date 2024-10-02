@@ -140,7 +140,3 @@ def show_main_page():
             st.dataframe(df.style.applymap(color_df, subset=["Status"]))
         else:
             st.info(f"Nenhum veículo encontrado para o mecânico {mechanic}.")
-
-# Função principal
-if __name__ == '__main__':
-    main()
