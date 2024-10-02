@@ -42,11 +42,7 @@ def color_df(val):
         "Pronto para retirada": "green"
     }
     return f'background-color: {color_map.get(val, "white")};'
-
-# Função principal
-def main():
-    st.title("🛠️ Gestão de Pátio de Oficina 🚗")
-    
+ 
 # Função para exibir a página principal
 def show_main_page():
     st.sidebar.image("mecanicar/marca-nova.jpg")
