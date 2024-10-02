@@ -45,6 +45,7 @@ def color_df(val):
 
 
 
+
 # Função para verificar as credenciais do usuário
 def authenticate(username, password):
     # Verifique as credenciais no banco de dados ou em algum outro local seguro
@@ -190,7 +191,7 @@ def show_main_page():
                     time.sleep(2)  # Altere o tempo conforme necessário
                     st.experimental_rerun()  # Rerun do script para atualizar em tempo real
             # Renderiza o DataFrame com a coluna de botões
-            st.dataframe(df_all.style.map(color_df, subset=["Status"]))
+            st.dataframe(df_all.style.applymap(color_df, subset=["Status"]))
         else:
             st.info("Nenhum veículo encontrado.")
 
@@ -200,7 +201,8 @@ def show_main_page():
         data = get_data_by_consultant(consultant)
         if data:
             df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-            st.dataframe(df.style.map(color_df, subset=["Status"]))
+            st.dataframe(df_all.style.applymap(color_df, subset=["Status"]))
+
         else:
             st.info("Nenhum veículo encontrado para este consultor.")
 
@@ -210,7 +212,7 @@ def show_main_page():
         data = get_data_by_mechanic(mechanic)
         if data:
             df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-            st.dataframe(df.style.map(color_df, subset=["Status"]))
+            st.dataframe(df_all.style.applymap(color_df, subset=["Status"]))
         else:
             st.info("Nenhum veículo encontrado para este mecânico.")
             
