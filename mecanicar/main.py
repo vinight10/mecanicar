@@ -7,7 +7,6 @@ import time
 import os
 import shutil
 from datetime import datetime, timedelta
-from passlib.hash import bcrypt  # Para hashing de senhas
 
 # Função para verificar se o banco de dados já existe
 def database_exists(db_path):
@@ -44,78 +43,10 @@ def color_df(val):
     }
     return f'background-color: {color_map.get(val, "white")};'
 
-# Função para verificar as credenciais do usuário com hash de senha
-USER_DATA = {
-    "vini": bcrypt.hashpw("senha123".encode(), bcrypt.gensalt()),
-    "jessica": bcrypt.hashpw("senha456".encode(), bcrypt.gensalt()),
-    "paulo": bcrypt.hashpw("senha0122".encode(), bcrypt.gensalt()),
-    "rafa": bcrypt.hashpw("senha123".encode(), bcrypt.gensalt()),
-    "rudi": bcrypt.hashpw("senha222".encode(), bcrypt.gensalt()),
-    "samu": bcrypt.hashpw("senha77".encode(), bcrypt.gensalt()),
-    "danilo": bcrypt.hashpw("senha55".encode(), bcrypt.gensalt()),
-    "fosco": bcrypt.hashpw("senha11".encode(), bcrypt.gensalt()),
-    "weslei": bcrypt.hashpw("senha22".encode(), bcrypt.gensalt()),
-    "szcz": bcrypt.hashpw("senha44".encode(), bcrypt.gensalt())
-}
-
-def authenticate(username, password):
-    hashed_pw = USER_DATA.get(username)
-    if hashed_pw and bcrypt.checkpw(password.encode(), hashed_pw):
-        return True
-    return False
-
 # Função principal
 def main():
     st.title("🛠️ Gestão de Pátio de Oficina 🚗")
     
-    # Verifica se o usuário está autenticado
-    if not is_authenticated():
-        show_login_page()
-        st.empty()  # Limpar a página
-    else:
-        show_main_page()
-
-# Função para verificar se o usuário está autenticado
-def is_authenticated():
-    return st.session_state.get("authenticated", False)
-
-# Função para exibir a página de login
-def show_login_page():
-    try:
-        image = Image.open("mecanicar/marca-nova.jpg")
-        st.image(image)
-    except FileNotFoundError:
-        st.error("Imagem não encontrada.")
-        
-    st.title("Página de Login")
-    username = st.text_input("Nome de Usuário")
-    password = st.text_input("Senha", type="password")
-    if st.button("Login"):
-        if authenticate(username, password):
-            st.success("Login bem-sucedido!")
-            set_session_data(username, password)  # Definir a sessão
-            show_main_page()  # Redirecionar para a página principal após o login
-        else:
-            st.error("Nome de usuário ou senha incorretos.")
-
-# Função para definir os dados da sessão após o login
-def set_session_data(username, password):
-    st.session_state.authenticated = True
-    st.session_state.username = username
-    st.session_state.password = password
-    set_session_cookie()  # Definir o cookie de sessão
-
-# Função para definir o cookie de sessão
-def set_session_cookie():
-    expiration_time = datetime.now() + timedelta(minutes=30)
-    expiration_timestamp = expiration_time.timestamp()
-    session_cookie = {
-        "username": st.session_state.username, 
-        "password": st.session_state.password, 
-        "max_age": expiration_timestamp
-    }
-    st.experimental_set_query_params(**session_cookie)
-
 # Função para exibir a página principal
 def show_main_page():
     st.sidebar.image("mecanicar/marca-nova.jpg")
