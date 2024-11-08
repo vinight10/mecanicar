@@ -99,7 +99,7 @@ elif choice == "Visualizar Veículos por Status 📊":
     if filtered_data:
         df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"]).reset_index(drop=True)
         df_styled = df_filtered.style.applymap(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '30px')]}]
+            [{'selector': 'td', 'props': [('font-size', '40px')]}]
         )
         st.markdown(df_styled.to_html(), unsafe_allow_html=True)
        
