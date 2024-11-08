@@ -7,7 +7,7 @@ import time
 import os
 import shutil
 
-DB_PATH = "mecanicar/database.db"
+DB_PATH = "mecanicar/data.db"
 BACKUP_PATH = "mecanicar/database_backup.db"
 
 # Função para verificar se o banco de dados já existe
@@ -151,7 +151,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
         st.markdown(df_styled.to_html(), unsafe_allow_html=True)
 
         while True:
-            time.sleep(20)
+            time.sleep(1)
             st.rerun()
 
     else:
