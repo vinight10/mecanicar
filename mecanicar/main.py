@@ -128,7 +128,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
             if st.button(f"Excluir {selected_vehicle}"):
                 delete_data(selected_vehicle)
                 st.success(f"Veículo \"{selected_vehicle}\" deletado com sucesso! 🚗")
-                time.sleep(0.5)
+                time.sleep(2)
                 st.experimental_rerun()
 
         # Renderiza o DataFrame com a coluna de botões
