@@ -7,7 +7,7 @@ import time
 import os
 import shutil
 
-DB_PATH = "mecanicar/database.db"
+DB_PATH = "mecanicar/data.db"
 BACKUP_PATH = "mecanicar/database_backup.db"
 
 # Função para verificar se o banco de dados já existe
@@ -31,9 +31,6 @@ def restore_database(db_path, backup_path):
 
 # Fazer backup do banco de dados antes de qualquer alteração
 backup_database(DB_PATH, BACKUP_PATH)
-
-# Criar o banco de dados, se necessário
-create_database(DB_PATH)
 
 # Definindo as propriedades do DataFrame
 pd.set_option('display.max_rows', None)  # Exibir todas as linhas
@@ -154,7 +151,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
         st.markdown(df_styled.to_html(), unsafe_allow_html=True)
 
         while True:
-            time.sleep(15)
+            time.sleep(1)
             st.rerun()
 
     else:
