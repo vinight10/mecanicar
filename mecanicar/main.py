@@ -148,7 +148,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
 
         # Renderiza o DataFrame com a coluna de botões
         df_styled = df_all.style.applymap(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '50px')]}]
+            [{'selector': 'td', 'props': [('font-size', '30px')]}]
         )
         st.markdown(df_styled.to_html(), unsafe_allow_html=True)
 
