@@ -77,8 +77,7 @@ if choice == "Adicionar Veículo 🚙":
     if st.button("Adicionar Veículo"):
         add_vehicle(vehicle, consultant, mechanic, status)
         st.success(f"Veículo \"{vehicle}\" adicionado com sucesso! 🚀")
-        time.sleep(0.5)
-        st.experimental_rerun()
+        st.session_state['update'] = True
 
 elif choice == "Visualizar Veículos por Status 📊":
     st.subheader("Visualizar Veículos por Status")
@@ -121,15 +120,14 @@ elif choice == "Visualizar Todos os Veículos 📝":
             if st.button("Atualizar Consultor, Mecânico e Status"):
                 update_vehicle_consultant_mechanic_status(selected_vehicle, new_consultant, new_mechanic, new_status)
                 st.success(f"Consultor, Mecânico e Status do veículo \"{selected_vehicle}\" atualizados com sucesso! 🚀")
-                time.sleep(0.5)
-                st.experimental_rerun()
+                st.session_state['update'] = True
 
         with col3:
-            if st.button(f"Excluir {selected_vehicle}"):
+            delete_button = st.button(f"Excluir {selected_vehicle}")
+            if delete_button:
                 delete_data(selected_vehicle)
                 st.success(f"Veículo \"{selected_vehicle}\" deletado com sucesso! 🚗")
-                time.sleep(2)
-                st.experimental_rerun()
+                st.session_state['update'] = True
 
         # Renderiza o DataFrame com a coluna de botões
         df_styled = df_all.style.applymap(color_df, subset=["Status"]).set_table_styles(
@@ -167,3 +165,9 @@ elif choice == "Visualizar por Mecânico 🔧":
         st.info("Nenhum veículo encontrado para este mecânico.")
 
 st.markdown("<br><hr><center>Desenvolvido por Vinight </center><hr>", unsafe_allow_html=True)
+
+# Forçar a atualização da página se houver uma mudança de estado
+if 'update' in st.session_state:
+    time.sleep(0.5)
+    del st.session_state['update']
+    st.experimental_rerun()
