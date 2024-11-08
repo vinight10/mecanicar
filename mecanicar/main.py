@@ -123,7 +123,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
 
         # Define o valor padrão dos selectbox para ser o consultor e o mecânico atuais
         new_consultant = st.selectbox("Selecione um Novo Consultor", ["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"], index=["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"].index(current_consultant))
-        new_mechanic = st.selectbox("Selecione um Novo Mecânico", ["Vini", "Valdo", "Danilo", "Matheus", "Szczhoca", "Weslei"], index=["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"].index(current_mechanic))
+        new_mechanic = st.selectbox("Selecione um Novo Mecânico", ["Vini", "Valdo", "Danilo", "Matheus", "Szczhoca", "Weslei"], index=["Vini", "Valdo", "Danilo", "Matheus", "Szczhoca", "Weslei"].index(current_mechanic))
         new_status = st.selectbox("Selecione um Novo Status", status_options, index=status_options.index(current_status))
 
         col1, col2, col3 = st.columns(3)
@@ -154,7 +154,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
         st.markdown(df_styled.to_html(), unsafe_allow_html=True)
 
         while True:
-            time.sleep(5)
+            time.sleep(15)
             st.rerun()
 
     else:
