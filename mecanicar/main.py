@@ -78,7 +78,7 @@ if choice == "Adicionar Veículo 🚙":
         consultant = st.selectbox("Consultor Responsável", ["Rafael", "Rudimar", "Samuel", "Jéssica", "Paulo"])
 
     with col3:
-        mechanic = st.selectbox("Mecânico Responsável", ["Vini", "Valdo", "Danilo", "Matheus", "Szczhoca", "Weslei"])
+        mechanic = st.selectbox("Mecânico Responsável", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"])
 
     status = st.selectbox("Status", status_options)
 
@@ -120,7 +120,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
 
         # Define o valor padrão dos selectbox para ser o consultor e o mecânico atuais
         new_consultant = st.selectbox("Selecione um Novo Consultor", ["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"], index=["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"].index(current_consultant))
-        new_mechanic = st.selectbox("Selecione um Novo Mecânico", ["Vini", "Valdo", "Danilo", "Matheus", "Szczhoca", "Weslei"], index=["Vini", "Valdo", "Danilo", "Matheus", "Szczhoca", "Weslei"].index(current_mechanic))
+        new_mechanic = st.selectbox("Selecione um Novo Mecânico", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"], index=["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"].index(current_mechanic))
         new_status = st.selectbox("Selecione um Novo Status", status_options, index=status_options.index(current_status))
 
         col1, col2, col3 = st.columns(3)
@@ -172,7 +172,7 @@ elif choice == "Visualizar por Consultor 👨‍🔧":
 
 elif choice == "Visualizar por Mecânico 🔧":
     st.subheader("Visualizar Veículos por Mecânico")
-    mechanic = st.selectbox("Selecione um Mecânico", ["Vini", "Valdo", "Danilo", "Matheus", "Szczhoca", "Weslei"])
+    mechanic = st.selectbox("Selecione um Mecânico", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"])
     data = get_data_by_mechanic(mechanic)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
