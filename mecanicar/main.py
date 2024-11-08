@@ -168,6 +168,5 @@ st.markdown("<br><hr><center>Desenvolvido por Vinight </center><hr>", unsafe_all
 
 # Forçar a atualização da página se houver uma mudança de estado
 if 'update' in st.session_state:
-    time.sleep(1)
     del st.session_state['update']
     st.experimental_rerun()
