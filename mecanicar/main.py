@@ -87,7 +87,7 @@ elif choice == "Visualizar Veículos por Status 📊":
 
     if filtered_data:
         df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        df_styled = df_filtered.style.map(color_df, subset=["Status"]).set_table_styles(
+        df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles(
             [{'selector': 'td', 'props': [('font-size', '20px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
@@ -150,7 +150,7 @@ elif choice == "Visualizar por Consultor 👨‍🔧":
     data = get_data_by_consultant(consultant)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles(
+        df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles(
             [{'selector': 'td', 'props': [('font-size', '20px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
@@ -163,7 +163,7 @@ elif choice == "Visualizar por Mecânico 🔧":
     data = get_data_by_mechanic(mechanic)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles(
+        df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles(
             [{'selector': 'td', 'props': [('font-size', '20px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
