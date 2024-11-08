@@ -150,7 +150,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
         df_styled = df_all.style.applymap(color_df, subset=["Status"]).set_table_styles(
             [{'selector': 'td', 'props': [('font-size', '50px')]}]
         )
-        st.dataframe(df_styled, use_container_width=True, use_container_height=True)
+        st.dataframe(df_styled, use_container_width=True)
 
     else:
         st.info("Nenhum veículo encontrado.")
