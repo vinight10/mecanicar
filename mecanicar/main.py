@@ -51,7 +51,7 @@ def color_df(val):
         "Em serviço": "lightblue",
         "Pronto para retirada": "green"
     }
-    color = color_map.get(val, "white")
+    color = color_map.get(val, "lightblue")
     return f'background-color: {color}; color: white; font-size: 50px;'
 
 st.set_page_config(
