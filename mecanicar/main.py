@@ -156,7 +156,10 @@ elif choice == "Visualizar Todos os Veículos 📝":
 
     else:
         st.info("Nenhum veículo encontrado.")
-
+        
+        while True:
+            time.sleep(10)
+            st.rerun()
 elif choice == "Visualizar por Consultor 👨‍🔧":
     st.subheader("Visualizar Veículos por Consultor")
     consultant = st.selectbox("Selecione um Consultor", ["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"])
