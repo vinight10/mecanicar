@@ -47,7 +47,7 @@ def color_df(val):
     color_map = {
         "Na fila": "purple",
         "Orçamento": "orange",
-        "Aguardando Peças": "brown",
+        "Aguardando Peças": "red",
         "Em serviço": "blue",
         "Pronto para retirada": "green"
     }
