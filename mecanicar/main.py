@@ -19,7 +19,6 @@ def create_database(db_path):
         conn.close()
 
 # Caminho absoluto para o banco de dados
-
 DB_PATH = "mecanicar/database.db"
 
 # Criar o banco de dados, se necessário
@@ -31,7 +30,6 @@ pd.set_option('display.max_columns', None)  # Exibir todas as colunas
 pd.set_option('display.width', 50)  # Largura da tela (para evitar que as colunas sejam truncadas)
 pd.set_option('display.expand_frame_repr', True)  # Evitar que as colunas sejam truncadas
 pd.set_option('max_colwidth', 20)  # Largura máxima da coluna (para evitar truncamento do conteúdo)
-
 
 # Função para aplicar cores ao DataFrame
 def color_df(val):
@@ -51,7 +49,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
 
 st.title("🛠️ Gestão de Pátio de Oficina 🚗")
 
@@ -89,11 +86,9 @@ elif choice == "Visualizar Veículos por Status 📊":
 
     if filtered_data:
         df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        st.dataframe(df_filtered.style.map(color_df, subset=["Status"]))
+        st.dataframe(df_filtered.style.map(color_df, subset=["Status"]), use_container_width=True)
     else:
         st.info("Nenhum veículo encontrado com o status selecionado.")        
-
-
 
 elif choice == "Visualizar Todos os Veículos 📝":
     st.subheader("Visualizar Todos os Veículos")
@@ -115,13 +110,9 @@ elif choice == "Visualizar Todos os Veículos 📝":
         new_mechanic = st.selectbox("Selecione um Novo Mecânico", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"], index=["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"].index(current_mechanic))
         new_status = st.selectbox("Selecione um Novo Status", status_options, index=status_options.index(current_status))
 
-
-    
-
         col1, col2, col3 = st.columns(3)
 
         with col1:
-        
             if st.button("Atualizar Consultor, Mecânico e Status"):
                 update_vehicle_consultant_mechanic_status(selected_vehicle, new_consultant, new_mechanic, new_status)
                 st.success(f"Consultor, Mecânico e Status do veículo \"{selected_vehicle}\" atualizados com sucesso! 🚀")
@@ -137,24 +128,21 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 time.sleep(2)  # Altere o tempo conforme necessário
                 success_message_text.text("Veículo deletado")
                 st.experimental_rerun()  # Rerun do script para atualizar em tempo real
+
         # Renderiza o DataFrame com a coluna de botões
         st.markdown(df_all.style.applymap(color_df, subset=["Status"]).to_html(), unsafe_allow_html=True)
-
 
     else:
         st.info("Nenhum veículo encontrado.")
 
-
-
 elif choice == "Visualizar por Consultor 👨‍🔧":
-
     st.subheader("Visualizar Veículos por Consultor")
     consultant = st.selectbox("Selecione um Consultor", ["Paulo", "Jéssica", "Samuel", "Rafael", "Rudimar"])
     data = get_data_by_consultant(consultant)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
         df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}])
-        st.dataframe(df.style.map(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}]))
+        st.dataframe(df_styled, use_container_width=True)
     else:
         st.info("Nenhum veículo encontrado para este consultor.")
 
@@ -164,8 +152,8 @@ elif choice == "Visualizar por Mecânico 🔧":
     data = get_data_by_mechanic(mechanic)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        st.dataframe(df.style.map(color_df, subset=["Status"]))
+        st.dataframe(df.style.map(color_df, subset=["Status"]), use_container_width=True)
     else:
         st.info("Nenhum veículo encontrado para este mecânico.")
-        
+
 st.markdown("<br><hr><center>Desenvolvido por Vinight </center><hr>", unsafe_allow_html=True)
