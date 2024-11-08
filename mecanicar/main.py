@@ -48,7 +48,7 @@ def color_df(val):
         "Na fila": "red",
         "Orçamento": "orange",
         "Aguardando Peças": "brown",
-        "Em serviço": "lightblue",
+        "Em serviço": "blue",
         "Pronto para retirada": "green"
     }
     color = color_map.get(val, "lightblue")
