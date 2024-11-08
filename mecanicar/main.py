@@ -163,22 +163,22 @@ elif choice == "Visualizar por Consultor 👨‍🔧":
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
         df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '50px')]}]
+            [{'selector': 'td', 'props': [('font-size', '25px')]}]
         )
-        st.dataframe(df_styled, use_container_width=True)
+        st.markdown(df_styled.to_html(), unsafe_allow_html=True)
     else:
         st.info("Nenhum veículo encontrado para este consultor.")
 
 elif choice == "Visualizar por Mecânico 🔧":
     st.subheader("Visualizar Veículos por Mecânico")
-    mechanic = st.selectbox("Selecione um Mecânico", ["Vini", "Valdo", "Danilo", "Fosco", "Szczhoca", "Weslei"])
+    mechanic = st.selectbox("Selecione um Mecânico", ["Vini", "Valdo", "Danilo", "Matheus", "Szczhoca", "Weslei"])
     data = get_data_by_mechanic(mechanic)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
         df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '50px')]}]
+            [{'selector': 'td', 'props': [('font-size', '25px')]}]
         )
-        st.dataframe(df_styled, use_container_width=True)
+        st.markdown(df_styled.to_html(), unsafe_allow_html=True)
     else:
         st.info("Nenhum veículo encontrado para este mecânico.")
 
