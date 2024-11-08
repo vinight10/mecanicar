@@ -121,6 +121,8 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 update_vehicle_consultant_mechanic_status(selected_vehicle, new_consultant, new_mechanic, new_status)
                 st.success(f"Consultor, Mecânico e Status do veículo \"{selected_vehicle}\" atualizados com sucesso! 🚀")
                 st.session_state['update'] = True
+                time.sleep(0.5)
+                st.experimental_rerun()
 
         with col3:
             delete_button = st.button(f"Excluir {selected_vehicle}")
@@ -128,6 +130,8 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 delete_data(selected_vehicle)
                 st.success(f"Veículo \"{selected_vehicle}\" deletado com sucesso! 🚗")
                 st.session_state['update'] = True
+                time.sleep(0.5)
+                st.experimental_rerun()
 
         # Renderiza o DataFrame com a coluna de botões
         df_styled = df_all.style.applymap(color_df, subset=["Status"]).set_table_styles(
