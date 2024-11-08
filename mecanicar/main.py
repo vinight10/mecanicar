@@ -45,7 +45,7 @@ pd.set_option('max_colwidth', 20)  # Largura máxima da coluna (para evitar trun
 # Função para aplicar cores ao DataFrame
 def color_df(val):
     color_map = {
-        "Na fila": "red",
+        "Na fila": "yellow",
         "Orçamento": "orange",
         "Aguardando Peças": "brown",
         "Em serviço": "blue",
