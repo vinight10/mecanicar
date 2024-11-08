@@ -86,7 +86,10 @@ elif choice == "Visualizar Veículos por Status 📊":
 
     if filtered_data:
         df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        st.dataframe(df_filtered.style.map(color_df, subset=["Status"]), use_container_width=True)
+        df_styled = df_filtered.style.map(color_df, subset=["Status"]).set_table_styles(
+            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+        )
+        st.dataframe(df_styled, use_container_width=True)
     else:
         st.info("Nenhum veículo encontrado com o status selecionado.")        
 
@@ -130,7 +133,10 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 st.experimental_rerun()  # Rerun do script para atualizar em tempo real
 
         # Renderiza o DataFrame com a coluna de botões
-        st.dataframe(df_all.style.applymap(color_df, subset=["Status"]), use_container_width=True)
+        df_styled = df_all.style.applymap(color_df, subset=["Status"]).set_table_styles(
+            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+        )
+        st.dataframe(df_styled, use_container_width=True)
 
     else:
         st.info("Nenhum veículo encontrado.")
@@ -141,7 +147,9 @@ elif choice == "Visualizar por Consultor 👨‍🔧":
     data = get_data_by_consultant(consultant)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles([{'selector': 'td', 'props': [('font-size', '20px'), ('line-height', '10px')]}])
+        df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles(
+            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+        )
         st.dataframe(df_styled, use_container_width=True)
     else:
         st.info("Nenhum veículo encontrado para este consultor.")
@@ -152,7 +160,10 @@ elif choice == "Visualizar por Mecânico 🔧":
     data = get_data_by_mechanic(mechanic)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        st.dataframe(df.style.map(color_df, subset=["Status"]), use_container_width=True)
+        df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles(
+            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+        )
+        st.dataframe(df_styled, use_container_width=True)
     else:
         st.info("Nenhum veículo encontrado para este mecânico.")
 
