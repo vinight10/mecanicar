@@ -7,7 +7,7 @@ import time
 import os
 import shutil
 
-DB_PATH = "mecanicar/data.db"
+DB_PATH = "mecanicar/database.db"
 BACKUP_PATH = "mecanicar/database_backup.db"
 
 # Função para verificar se o banco de dados já existe
