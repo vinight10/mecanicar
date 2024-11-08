@@ -52,7 +52,7 @@ def color_df(val):
         "Pronto para retirada": "green"
     }
     color = color_map.get(val, "white")
-    return f'background-color: {color}; color: white; font-size: 20px;'
+    return f'background-color: {color}; color: white; font-size: 30px;'
 
 st.set_page_config(
     page_title="Gestão de Pátio de Oficina",
@@ -99,7 +99,7 @@ elif choice == "Visualizar Veículos por Status 📊":
     if filtered_data:
         df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"]).reset_index(drop=True)
         df_styled = df_filtered.style.applymap(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+            [{'selector': 'td', 'props': [('font-size', '30px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
     else:
@@ -148,7 +148,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
 
         # Renderiza o DataFrame com a coluna de botões
         df_styled = df_all.style.applymap(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+            [{'selector': 'td', 'props': [('font-size', '30px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
 
@@ -162,7 +162,7 @@ elif choice == "Visualizar por Consultor 👨‍🔧":
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
         df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+            [{'selector': 'td', 'props': [('font-size', '30px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
     else:
@@ -175,7 +175,7 @@ elif choice == "Visualizar por Mecânico 🔧":
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
         df_styled = df.style.applymap(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+            [{'selector': 'td', 'props': [('font-size', '30px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
     else:
