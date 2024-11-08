@@ -130,7 +130,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 st.experimental_rerun()  # Rerun do script para atualizar em tempo real
 
         # Renderiza o DataFrame com a coluna de botões
-        st.markdown(df_all.style.applymap(color_df, subset=["Status"]).to_html(), unsafe_allow_html=True)
+        st.dataframe(df_all.style.applymap(color_df, subset=["Status"]), use_container_width=True)
 
     else:
         st.info("Nenhum veículo encontrado.")
