@@ -77,6 +77,7 @@ if choice == "Adicionar Veículo 🚙":
     if st.button("Adicionar Veículo"):
         add_vehicle(vehicle, consultant, mechanic, status)
         st.success(f"Veículo \"{vehicle}\" adicionado com sucesso! 🚀")
+        st.session_state['update'] = True
 
 elif choice == "Visualizar Veículos por Status 📊":
     st.subheader("Visualizar Veículos por Status")
@@ -87,7 +88,7 @@ elif choice == "Visualizar Veículos por Status 📊":
     if filtered_data:
         df_filtered = pd.DataFrame(filtered_data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
         df_styled = df_filtered.style.map(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+            [{'selector': 'td', 'props': [('font-size', '28px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
     else:
@@ -119,7 +120,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
             if st.button("Atualizar Consultor, Mecânico e Status"):
                 update_vehicle_consultant_mechanic_status(selected_vehicle, new_consultant, new_mechanic, new_status)
                 st.success(f"Consultor, Mecânico e Status do veículo \"{selected_vehicle}\" atualizados com sucesso! 🚀")
-                st.experimental_rerun()  # Rerun do script para atualizar em tempo real
+                st.session_state['update'] = True
 
         with col3:
             delete_button = st.button(f"Excluir {selected_vehicle}")
@@ -130,11 +131,11 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 success_message_text = success_message.text("")
                 time.sleep(2)  # Altere o tempo conforme necessário
                 success_message_text.text("Veículo deletado")
-                st.experimental_rerun()  # Rerun do script para atualizar em tempo real
+                st.session_state['update'] = True
 
         # Renderiza o DataFrame com a coluna de botões
         df_styled = df_all.style.applymap(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+            [{'selector': 'td', 'props': [('font-size', '28px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
 
@@ -148,7 +149,7 @@ elif choice == "Visualizar por Consultor 👨‍🔧":
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
         df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '20px')]}]
+            [{'selector': 'td', 'props': [('font-size', '28px')]}]
         )
         st.dataframe(df_styled, use_container_width=True)
     else:
@@ -160,11 +161,3 @@ elif choice == "Visualizar por Mecânico 🔧":
     data = get_data_by_mechanic(mechanic)
     if data:
         df = pd.DataFrame(data, columns=["Veículo", "Consultor", "Mecânico", "Status"])
-        df_styled = df.style.map(color_df, subset=["Status"]).set_table_styles(
-            [{'selector': 'td', 'props': [('font-size', '20px')]}]
-        )
-        st.dataframe(df_styled, use_container_width=True)
-    else:
-        st.info("Nenhum veículo encontrado para este mecânico.")
-
-st.markdown("<br><hr><center>Desenvolvido por Vinight </center><hr>", unsafe_allow_html=True)
