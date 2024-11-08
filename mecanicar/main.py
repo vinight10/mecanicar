@@ -125,8 +125,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
                 st.experimental_rerun()
 
         with col3:
-            delete_button = st.button(f"Excluir {selected_vehicle}")
-            if delete_button:
+            if st.button(f"Excluir {selected_vehicle}"):
                 delete_data(selected_vehicle)
                 st.success(f"Veículo \"{selected_vehicle}\" deletado com sucesso! 🚗")
                 time.sleep(0.5)
