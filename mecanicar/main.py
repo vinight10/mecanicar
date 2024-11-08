@@ -120,7 +120,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
             if st.button("Atualizar Consultor, Mecânico e Status"):
                 update_vehicle_consultant_mechanic_status(selected_vehicle, new_consultant, new_mechanic, new_status)
                 time.sleep(0.5)
-                st.experimental_rerun()
+                st.rerun()
                 st.success(f"Consultor, Mecânico e Status do veículo \"{selected_vehicle}\" atualizados com sucesso! 🚀")
                 st.session_state['update'] = True
                 
@@ -130,7 +130,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
             if delete_button:
                 delete_data(selected_vehicle)
                 time.sleep(0.5)
-                st.experimental_rerun()
+                st.rerun()
                 st.success(f"Veículo \"{selected_vehicle}\" deletado com sucesso! 🚗")
                 st.session_state['update'] = True
                 
@@ -176,4 +176,4 @@ st.markdown("<br><hr><center>Desenvolvido por Vinight </center><hr>", unsafe_all
 if 'update' in st.session_state:
     time.sleep(0.5)
     del st.session_state['update']
-    st.experimental_rerun()
+    st.rerun()
