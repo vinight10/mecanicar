@@ -151,7 +151,7 @@ elif choice == "Visualizar Todos os Veículos 📝":
         st.markdown(df_styled.to_html(), unsafe_allow_html=True)
 
         while True:
-            time.sleep(1)
+            time.sleep(20)
             st.rerun()
 
     else:
