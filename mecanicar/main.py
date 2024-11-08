@@ -7,6 +7,9 @@ import time
 import os
 import shutil
 
+DB_PATH = "mecanicar/database.db"
+BACKUP_PATH = "mecanicar/database_backup.db"
+
 # Função para verificar se o banco de dados já existe
 def database_exists(db_path):
     return os.path.exists(db_path)
@@ -18,8 +21,16 @@ def create_database(db_path):
         create_table()
         conn.close()
 
-# Caminho absoluto para o banco de dados
-DB_PATH = "mecanicar/database.db"
+# Função para fazer backup do banco de dados
+def backup_database(db_path, backup_path):
+    shutil.copy(db_path, backup_path)
+
+# Função para restaurar o banco de dados a partir do backup
+def restore_database(db_path, backup_path):
+    shutil.copy(backup_path, db_path)
+
+# Fazer backup do banco de dados antes de qualquer alteração
+backup_database(DB_PATH, BACKUP_PATH)
 
 # Criar o banco de dados, se necessário
 create_database(DB_PATH)
